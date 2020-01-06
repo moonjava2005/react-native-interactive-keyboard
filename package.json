@@ -1,6 +1,6 @@
 {
   "name": "react-native-interactive-keyboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Keyboard with accessories on iOS and Android",
   "main": "index.js",
   "scripts": {
@@ -31,4 +31,4 @@
     "type": "git",
     "url": "git://github.com/moonjava2005/react-native-interactive-keyboard.git"
   }
-}
+},
