@@ -1,16 +1,14 @@
 //
-//  LNFrameAnimator.m
+//  MJFrameAnimator.m
 //  KeyboardTransitionDemo
 //
-//  Created by Leo Natan (Wix) on 11/05/2017.
-//  Copyright © 2017 Wix. All rights reserved.
 //
 
-#import "LNAnimator.h"
+#import "MJAnimator.h"
 
 #import "MJInterpolation.h"
 
-@implementation LNViewAnimation
+@implementation MJViewAnimation
 {
 	id _fromValue;
 }
@@ -19,7 +17,7 @@
 
 - (instancetype)init
 {
-	[NSException raise:NSInvalidArgumentException format:@"Use animationWithView:keyPath:toValue: to create LNViewAnimation objects."];
+	[NSException raise:NSInvalidArgumentException format:@"Use animationWithView:keyPath:toValue: to create MJViewAnimation objects."];
 	return nil;
 }
 
@@ -30,7 +28,7 @@
 
 + (instancetype)animationWithView:(UIView*)view keyPath:(NSString*)keyPath toValue:(id)toValue
 {
-	LNViewAnimation* rv = [[LNViewAnimation alloc] _init];
+	MJViewAnimation* rv = [[MJViewAnimation alloc] _init];
 	
 	if(rv)
 	{
@@ -52,7 +50,7 @@
 
 @end
 
-@implementation LNAnimator
+@implementation MJAnimator
 {
 	void (^_completionHandler)(BOOL);
 	CADisplayLink* _displayLink;
@@ -62,7 +60,7 @@
 
 - (instancetype)init
 {
-	[NSException raise:NSInvalidArgumentException format:@"Use animationWithView:keyPath:toValue: to create LNViewAnimation objects."];
+	[NSException raise:NSInvalidArgumentException format:@"Use animationWithView:keyPath:toValue: to create MJViewAnimation objects."];
 	return nil;
 }
 
@@ -71,9 +69,9 @@
 	return [super init];
 }
 
-+ (instancetype)animatorWithDuration:(NSTimeInterval)duration animations:(NSArray<id<LNAnimation>>*)animations completionHandler:(void(^)(BOOL completed))completionHandler
++ (instancetype)animatorWithDuration:(NSTimeInterval)duration animations:(NSArray<id<MJAnimation>>*)animations completionHandler:(void(^)(BOOL completed))completionHandler
 {
-	LNAnimator* rv = [[LNAnimator alloc] _init];
+	MJAnimator* rv = [[MJAnimator alloc] _init];
 	if(rv)
 	{
 		rv->_duration = duration;
@@ -102,7 +100,7 @@
 	}
 	_previousFrameTimestamp = _displayLink.timestamp;
 	
-	[_animations enumerateObjectsUsingBlock:^(id<LNAnimation>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+	[_animations enumerateObjectsUsingBlock:^(id<MJAnimation>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 		obj.progress = MIN(_elapsedTime / _duration, 1.0);
 	}];
 	

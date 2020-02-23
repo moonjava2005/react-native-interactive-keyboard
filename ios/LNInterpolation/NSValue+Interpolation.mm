@@ -1,8 +1,6 @@
 //
 //  NSValue+Interpolation.mm
 //
-//  Created by Leo Natan on 01/10/2016.
-//  Copyright © 2016 Leo Natan. All rights reserved.
 //
 
 #import "NSValue+Interpolation.h"
@@ -26,18 +24,18 @@
 
 #endif
 
-extern "C" double LNLinearInterpolate(double from, double to, double p);
+extern "C" double MJLinearInterpolate(double from, double to, double p);
 
 #if __has_include(<UIKit/UIKit.h>)
 static inline CGAffineTransform _LNInterpolateCGAffineTransform(const CGAffineTransform& fromTransform, const CGAffineTransform& toTransform, CGFloat p)
 {
 	CGAffineTransform rv;
-	rv.a = LNLinearInterpolate(fromTransform.a, toTransform.a, p);
-	rv.b = LNLinearInterpolate(fromTransform.b, toTransform.b, p);
-	rv.c = LNLinearInterpolate(fromTransform.c, toTransform.c, p);
-	rv.d = LNLinearInterpolate(fromTransform.d, toTransform.d, p);
-	rv.tx = LNLinearInterpolate(fromTransform.tx, toTransform.tx, p);
-	rv.ty = LNLinearInterpolate(fromTransform.ty, toTransform.ty, p);
+	rv.a = MJLinearInterpolate(fromTransform.a, toTransform.a, p);
+	rv.b = MJLinearInterpolate(fromTransform.b, toTransform.b, p);
+	rv.c = MJLinearInterpolate(fromTransform.c, toTransform.c, p);
+	rv.d = MJLinearInterpolate(fromTransform.d, toTransform.d, p);
+	rv.tx = MJLinearInterpolate(fromTransform.tx, toTransform.tx, p);
+	rv.ty = MJLinearInterpolate(fromTransform.ty, toTransform.ty, p);
 	
 	return rv;
 }
@@ -76,7 +74,7 @@ static inline CGAffineTransform _LNInterpolateCGAffineTransform(const CGAffineTr
 		double f = [(NSNumber*)self doubleValue];
 		double f2 = [(NSNumber*)toValue doubleValue];
 		
-		return [NSNumber numberWithDouble:LNLinearInterpolate(f, f2, p)];
+		return [NSNumber numberWithDouble:MJLinearInterpolate(f, f2, p)];
 	}
 	
 #if __has_include(<UIKit/UIKit.h>) || __has_include(<AppKit/AppKit.h>)
@@ -88,8 +86,8 @@ static inline CGAffineTransform _LNInterpolateCGAffineTransform(const CGAffineTr
 	{
 		CGPoint v = [self CGPointValue];
 		CGPoint v2 = [self CGPointValue];
-		v.x = LNLinearInterpolate(v.x, v2.y, p);
-		v.y = LNLinearInterpolate(v.x, v2.y, p);
+		v.x = MJLinearInterpolate(v.x, v2.y, p);
+		v.y = MJLinearInterpolate(v.x, v2.y, p);
 
 		return [NSValue valueWithCGPoint:v];
 	}
@@ -99,10 +97,10 @@ static inline CGAffineTransform _LNInterpolateCGAffineTransform(const CGAffineTr
 	{
 		CGRect v = [self CGRectValue];
 		CGRect v2 = [toValue CGRectValue];
-		v.origin.x = LNLinearInterpolate(v.origin.x, v2.origin.x, p);
-		v.origin.y = LNLinearInterpolate(v.origin.y, v2.origin.y, p);
-		v.size.width = LNLinearInterpolate(v.size.width, v2.size.width, p);
-		v.size.height = LNLinearInterpolate(v.size.height, v2.size.height, p);
+		v.origin.x = MJLinearInterpolate(v.origin.x, v2.origin.x, p);
+		v.origin.y = MJLinearInterpolate(v.origin.y, v2.origin.y, p);
+		v.size.width = MJLinearInterpolate(v.size.width, v2.size.width, p);
+		v.size.height = MJLinearInterpolate(v.size.height, v2.size.height, p);
 		
 		return [NSValue valueWithCGRect:v];
 	}

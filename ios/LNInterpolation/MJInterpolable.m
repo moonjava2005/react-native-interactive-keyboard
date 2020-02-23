@@ -19,7 +19,7 @@ double QuarticEaseOut(double p)
     return f * f * f * (1 - p) + 1;
 }
 
-double LNLinearInterpolate(double from, double to, double p)
+double MJLinearInterpolate(double from, double to, double p)
 {
 	return from + QuarticEaseOut(p) * (to - from);
 }

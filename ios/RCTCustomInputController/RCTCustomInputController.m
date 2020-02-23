@@ -1,8 +1,6 @@
 //
 //  RCTCustomInputController.m
 //
-//  Created by Leo Natan (Wix) on 13/12/2016.
-//  Copyright © 2016 Leo Natan. All rights reserved.
 //
 
 #import "RCTCustomInputController.h"
@@ -11,7 +9,7 @@
 #import <React/RCTUIManager.h>
 #import <objc/runtime.h>
 
-#import "LNAnimator.h"
+#import "MJAnimator.h"
 
 #define kHlperViewTag 0x1f1f1f
 
@@ -353,8 +351,8 @@ RCT_EXPORT_METHOD(expandFullScreenForInput:(nonnull NSNumber*)inputFieldTag)
         [_fullScreenWindow layoutIfNeeded];
       }];
       
-      [[LNAnimator animatorWithDuration:0.5
-                             animations:@[[LNViewAnimation animationWithView:_fullScreenWindow keyPath:@"frame" toValue:[NSValue valueWithCGRect:[UIScreen mainScreen].bounds]]]
+      [[MJAnimator animatorWithDuration:0.5
+                             animations:@[[MJViewAnimation animationWithView:_fullScreenWindow keyPath:@"frame" toValue:[NSValue valueWithCGRect:[UIScreen mainScreen].bounds]]]
                       completionHandler:^(BOOL completed)
         {
         [UIView performWithoutAnimation:^{
@@ -401,8 +399,8 @@ RCT_EXPORT_METHOD(resetSizeForInput:(nonnull NSNumber*)inputFieldTag)
       [_fullScreenWindow layoutIfNeeded];
       [_fullScreenWindow endEditing:YES];
       
-      [[LNAnimator animatorWithDuration:0.5
-                             animations:@[[LNViewAnimation animationWithView:_fullScreenWindow keyPath:@"frame" toValue:[NSValue valueWithCGRect:keyboardTargetFrame]]]
+      [[MJAnimator animatorWithDuration:0.5
+                             animations:@[[MJViewAnimation animationWithView:_fullScreenWindow keyPath:@"frame" toValue:[NSValue valueWithCGRect:keyboardTargetFrame]]]
                       completionHandler:^(BOOL completed)
         {
         RCTCustomKeyboardViewController *customKeyboardViewController = (RCTCustomKeyboardViewController*)helperView.inputViewController;

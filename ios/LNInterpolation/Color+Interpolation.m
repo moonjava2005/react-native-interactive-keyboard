@@ -1,8 +1,6 @@
 //
 //  Color+Interpolation.m
 //
-//  Created by Leo Natan on 01/10/2016.
-//  Copyright © 2016 Leo Natan. All rights reserved.
 //
 
 #if __has_include(<UIKit/UIKit.h>) || __has_include(<AppKit/AppKit.h>)
@@ -21,9 +19,9 @@
 MJInterpolationBehavior const MJInterpolationBehaviorUseLABColorSpace = @"MJInterpolationBehaviorUseDefault";
 MJInterpolationBehavior const MJInterpolationBehaviorUseRGBColorSpace = @"MJInterpolationBehaviorUseRGB";
 
-extern double LNLinearInterpolate(double from, double to, double p);
+extern double MJLinearInterpolate(double from, double to, double p);
 
-static NSArray<NSNumber*>* LNRGBComponentsFromColor(Color* color)
+static NSArray<NSNumber*>* MJRGBComponentsFromColor(Color* color)
 {
 	size_t numberOfComponents = CGColorGetNumberOfComponents(color.CGColor);
 	const CGFloat* components = CGColorGetComponents(color.CGColor);
@@ -31,14 +29,14 @@ static NSArray<NSNumber*>* LNRGBComponentsFromColor(Color* color)
 	return numberOfComponents == 2 ? @[@(components[0]), @(components[0]), @(components[0]), @(components[1])] : @[@(components[0]), @(components[1]), @(components[2]), @(components[3])];
 }
 
-static Color* LNColorFromRGBComponents(NSArray<NSNumber*>* components)
+static Color* MJColorFromRGBComponents(NSArray<NSNumber*>* components)
 {
 	return [Color colorWithRed:components[0].doubleValue green:components[1].doubleValue blue:components[2].doubleValue alpha:components[3].doubleValue];
 }
 
-static NSArray<NSNumber*>* LNLabComponentsFromColor(Color* color)
+static NSArray<NSNumber*>* MJLabComponentsFromColor(Color* color)
 {
-	NSArray<NSNumber*>* rgbComponents = LNRGBComponentsFromColor(color);
+	NSArray<NSNumber*>* rgbComponents = MJRGBComponentsFromColor(color);
 	CGFloat r = rgbComponents[0].doubleValue;
 	CGFloat g = rgbComponents[1].doubleValue;
 	CGFloat b = rgbComponents[2].doubleValue;
@@ -76,7 +74,7 @@ static NSArray<NSNumber*>* LNLabComponentsFromColor(Color* color)
 	return @[@(l), @(a), @(b), rgbComponents[3]];
 }
 
-static Color* LNColorFromLabComponents(NSArray<NSNumber*>* components)
+static Color* MJColorFromLabComponents(NSArray<NSNumber*>* components)
 {
 	CGFloat l = components[0].doubleValue;
 	CGFloat a = components[1].doubleValue;
@@ -112,17 +110,17 @@ static Color* LNColorFromLabComponents(NSArray<NSNumber*>* components)
 	b = b <= 0.0031308 ? 12.92 * b : 1.055 * pow(b, 1.0 / 2.4) - 0.055;
 	
 	// return Color
-	return LNColorFromRGBComponents(@[@(r), @(g), @(b), components[3]]);
+	return MJColorFromRGBComponents(@[@(r), @(g), @(b), components[3]]);
 }
 
-static inline Color* LNInterpolateColor(Color* fromValue, Color* toValue, CGFloat p, NSArray* (*compConverter)(Color*), Color* (*colorConverter)(NSArray*))
+static inline Color* MJInterpolateColor(Color* fromValue, Color* toValue, CGFloat p, NSArray* (*compConverter)(Color*), Color* (*colorConverter)(NSArray*))
 {
 	NSArray<NSNumber*>* arrayC1 = compConverter(fromValue);
 	NSArray<NSNumber*>* arrayC2 = compConverter(toValue);
 	
 	NSMutableArray<NSNumber*>* arrayOutput = [NSMutableArray new];
 	[arrayC1 enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-		arrayOutput[idx] = @(LNLinearInterpolate(obj.doubleValue, arrayC2[idx].doubleValue, p));
+		arrayOutput[idx] = @(MJLinearInterpolate(obj.doubleValue, arrayC2[idx].doubleValue, p));
 	}];
 	
 	return colorConverter(arrayOutput);
@@ -152,7 +150,7 @@ static inline Color* LNInterpolateColor(Color* fromValue, Color* toValue, CGFloa
 		return toValue;
 	}
 	
-	return LNInterpolateColor(self, toValue, p, behavior == MJInterpolationBehaviorUseRGBColorSpace ? LNRGBComponentsFromColor : LNLabComponentsFromColor, behavior == MJInterpolationBehaviorUseRGBColorSpace ? LNColorFromRGBComponents : LNColorFromLabComponents);
+	return MJInterpolateColor(self, toValue, p, behavior == MJInterpolationBehaviorUseRGBColorSpace ? MJRGBComponentsFromColor : MJLabComponentsFromColor, behavior == MJInterpolationBehaviorUseRGBColorSpace ? MJColorFromRGBComponents : MJColorFromLabComponents);
 }
 
 @end
