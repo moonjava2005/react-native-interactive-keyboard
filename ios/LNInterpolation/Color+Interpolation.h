@@ -1,13 +1,11 @@
 //
 //  Color+Interpolation.h
 //
-//  Created by Leo Natan on 01/10/2016.
-//  Copyright © 2016 Leo Natan. All rights reserved.
 //
 
 #if __has_include(<UIKit/UIKit.h>) || __has_include(<AppKit/AppKit.h>)
 
-#import "LNInterpolable.h"
+#import "MJInterpolable.h"
 
 #if __has_include(<UIKit/UIKit.h>)
 #import <UIKit/UIKit.h>
@@ -18,12 +16,12 @@
 /**
  Interpolate using the LAB color space for optimal quality. This constant is equal to @c LNUseDefaultInterpolationBehavior.
  */
-extern LNInterpolationBehavior const LNInterpolationBehaviorUseLABColorSpace;
+extern MJInterpolationBehavior const MJInterpolationBehaviorUseLABColorSpace;
 
 /**
  Interpolate using the RGB color space.
  */
-extern LNInterpolationBehavior const LNInterpolationBehaviorUseRGBColorSpace;
+extern MJInterpolationBehavior const MJInterpolationBehaviorUseRGBColorSpace;
 
 /**
  Interpolates between colors.
@@ -31,9 +29,9 @@ extern LNInterpolationBehavior const LNInterpolationBehaviorUseRGBColorSpace;
  By default, colors are interpolated in the Lab color space for optimal quality at the expense of some performance. Use @c LNUseRGBInterpolationBehavior for better performance but suboptimal quality.
  */
 #if __has_include(<UIKit/UIKit.h>)
-@interface UIColor (LNInterpolation) <LNInterpolable> @end
+@interface UIColor (MJInterpolation) <MJInterpolable> @end
 #else
-@interface NSColor (LNInterpolation) <LNInterpolable> @end
+@interface NSColor (MJInterpolation) <MJInterpolable> @end
 #endif
 
 #endif

@@ -17,9 +17,9 @@
 
 #define SWAP(x, y) do { __typeof(x) __ZZZZ__SWAP = x; x = y; y = __ZZZZ__SWAP; } while(0)
 
-//Same value as LNInterpolationBehaviorUseDefault
-LNInterpolationBehavior const LNInterpolationBehaviorUseLABColorSpace = @"LNInterpolationBehaviorUseDefault";
-LNInterpolationBehavior const LNInterpolationBehaviorUseRGBColorSpace = @"LNInterpolationBehaviorUseRGB";
+//Same value as MJInterpolationBehaviorUseDefault
+MJInterpolationBehavior const MJInterpolationBehaviorUseLABColorSpace = @"MJInterpolationBehaviorUseDefault";
+MJInterpolationBehavior const MJInterpolationBehaviorUseRGBColorSpace = @"MJInterpolationBehaviorUseRGB";
 
 extern double LNLinearInterpolate(double from, double to, double p);
 
@@ -132,10 +132,10 @@ static inline Color* LNInterpolateColor(Color* fromValue, Color* toValue, CGFloa
 
 - (instancetype)interpolateToValue:(Color*)toValue progress:(double)p
 {
-	return [self interpolateToValue:toValue progress:p behavior:LNInterpolationBehaviorUseDefault];
+	return [self interpolateToValue:toValue progress:p behavior:MJInterpolationBehaviorUseDefault];
 }
 
-- (instancetype)interpolateToValue:(id)toValue progress:(double)p behavior:(LNInterpolationBehavior)behavior
+- (instancetype)interpolateToValue:(id)toValue progress:(double)p behavior:(MJInterpolationBehavior)behavior
 {
 	if([toValue isKindOfClass:[Color class]] == NO)
 	{
@@ -152,7 +152,7 @@ static inline Color* LNInterpolateColor(Color* fromValue, Color* toValue, CGFloa
 		return toValue;
 	}
 	
-	return LNInterpolateColor(self, toValue, p, behavior == LNInterpolationBehaviorUseRGBColorSpace ? LNRGBComponentsFromColor : LNLabComponentsFromColor, behavior == LNInterpolationBehaviorUseRGBColorSpace ? LNColorFromRGBComponents : LNColorFromLabComponents);
+	return LNInterpolateColor(self, toValue, p, behavior == MJInterpolationBehaviorUseRGBColorSpace ? LNRGBComponentsFromColor : LNLabComponentsFromColor, behavior == MJInterpolationBehaviorUseRGBColorSpace ? LNColorFromRGBComponents : LNColorFromLabComponents);
 }
 
 @end

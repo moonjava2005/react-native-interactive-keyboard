@@ -47,10 +47,10 @@ static inline CGAffineTransform _LNInterpolateCGAffineTransform(const CGAffineTr
 
 - (instancetype)interpolateToValue:(id)toValue progress:(double)p
 {
-	return [self interpolateToValue:toValue progress:p behavior:LNInterpolationBehaviorUseDefault];
+	return [self interpolateToValue:toValue progress:p behavior:MJInterpolationBehaviorUseDefault];
 }
 
-- (instancetype)interpolateToValue:(id)toValue progress:(double)p behavior:(LNInterpolationBehavior)behavior
+- (instancetype)interpolateToValue:(id)toValue progress:(double)p behavior:(MJInterpolationBehavior)behavior
 {
 	if(p <= 0)
 	{

@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LNInterpolable.h"
+#import "MJInterpolable.h"
 
 /**
  Interpolates between @c NSValue objects.
@@ -16,4 +16,4 @@
 	UIKit: UIOffset, UIEdgeInsets (@c NSValue)
 	AppKit: NSEdgeInsets (@c NSValue)
  */
-@interface NSValue (Interpolation) <LNInterpolable> @end
+@interface NSValue (Interpolation) <MJInterpolable> @end

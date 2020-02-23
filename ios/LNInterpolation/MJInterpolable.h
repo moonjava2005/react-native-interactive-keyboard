@@ -1,5 +1,5 @@
 //
-//  LNInterpolable.h
+//  MJInterpolable.h
 //
 //  Created by Leo Natan on 01/10/2016.
 //  Copyright © 2016 Leo Natan. All rights reserved.
@@ -10,19 +10,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(InterpolationBehavior)
-typedef const NSString* LNInterpolationBehavior CF_STRING_ENUM;
+typedef const NSString* MJInterpolationBehavior CF_STRING_ENUM;
 
 /**
  Interpolate using the default behavor of each implementation.
  */
-extern LNInterpolationBehavior const LNInterpolationBehaviorUseDefault;
+extern MJInterpolationBehavior const MJInterpolationBehaviorUseDefault;
 
 
 /**
  Classes implementing this protocol support interpolation.
  */
 NS_SWIFT_NAME(Interpolable)
-@protocol LNInterpolable <NSObject>
+@protocol MJInterpolable <NSObject>
 
 /**
  Interpolates between @c self and @c toValue accodring to @c progress using the default behavior.
@@ -41,7 +41,7 @@ NS_SWIFT_NAME(Interpolable)
  @param progress The progress of the interpolation
  @return An object representing the interpolated value at the requested progress
  */
-- (instancetype)interpolateToValue:(id)toValue progress:(double)progress behavior:(LNInterpolationBehavior)behavior NS_SWIFT_NAME(interpolate(to:progress:behavior:));
+- (instancetype)interpolateToValue:(id)toValue progress:(double)progress behavior:(MJInterpolationBehavior)behavior NS_SWIFT_NAME(interpolate(to:progress:behavior:));
 
 NS_ASSUME_NONNULL_END
 

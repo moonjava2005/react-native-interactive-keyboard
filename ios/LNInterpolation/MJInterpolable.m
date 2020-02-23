@@ -1,13 +1,11 @@
 //
-//  LNInterpolable.c
+//  MJInterpolable.c
 //
-//  Created by Leo Natan on 04/10/2016.
-//  Copyright © 2016 Leo Natan. All rights reserved.
 //
 
-#import "LNInterpolable.h"
+#import "MJInterpolable.h"
 
-LNInterpolationBehavior const LNInterpolationBehaviorUseDefault = @"LNInterpolationBehaviorUseDefault";
+MJInterpolationBehavior const MJInterpolationBehaviorUseDefault = @"MJInterpolationBehaviorUseDefault";
 
 double BackEaseOut(double p)
 {

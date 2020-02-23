@@ -8,7 +8,7 @@
 
 #import "LNAnimator.h"
 
-#import "LNInterpolation.h"
+#import "MJInterpolation.h"
 
 @implementation LNViewAnimation
 {
