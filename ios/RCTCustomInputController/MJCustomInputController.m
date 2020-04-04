@@ -1,9 +1,9 @@
 //
-//  RCTCustomInputController.m
+//  MJCustomInputController.m
 //
 //
 
-#import "RCTCustomInputController.h"
+#import "MJCustomInputController.h"
 #import "RCTCustomKeyboardViewController.h"
 
 #import <React/RCTUIManager.h>
@@ -13,7 +13,7 @@
 
 #define kHlperViewTag 0x1f1f1f
 
-NSString *const RCTCustomInputControllerKeyboardResigendEvent = @"kbdResigned";
+NSString *const MJCustomInputControllerKeyboardResigendEvent = @"kbdResigned";
 
 @protocol _WXInputHelperViewDelegate <NSObject>
 -(void)_WXInputHelperViewResignFirstResponder:(UIView*)wxInputHelperView;
@@ -56,7 +56,7 @@ NSString *const RCTCustomInputControllerKeyboardResigendEvent = @"kbdResigned";
 @end
 
 
-@interface RCTCustomInputController () <_WXInputHelperViewDelegate> {
+@interface MJCustomInputController () <_WXInputHelperViewDelegate> {
   UIWindow *_fullScreenWindow;
   BOOL _performingExpandTransition;
 }
@@ -66,7 +66,7 @@ NSString *const RCTCustomInputControllerKeyboardResigendEvent = @"kbdResigned";
 @end
 
 BOOL fixKeyWindow=NO;
-@implementation RCTCustomInputController
+@implementation MJCustomInputController
 
 + (BOOL)requiresMainQueueSetup
 {
@@ -80,7 +80,7 @@ BOOL fixKeyWindow=NO;
 
 - (NSArray<NSString *> *)supportedEvents
 {
-  return @[RCTCustomInputControllerKeyboardResigendEvent];
+  return @[MJCustomInputControllerKeyboardResigendEvent];
 }
 
 RCT_EXPORT_MODULE(CustomInputController)
@@ -428,7 +428,7 @@ RCT_EXPORT_METHOD(resetSizeForInput:(nonnull NSNumber*)inputFieldTag)
 {
   if(self.customInputComponentPresented)
   {
-    [self sendEventWithName:RCTCustomInputControllerKeyboardResigendEvent body:nil];
+    [self sendEventWithName:MJCustomInputControllerKeyboardResigendEvent body:nil];
   }
   self.customInputComponentPresented = NO;
 }
