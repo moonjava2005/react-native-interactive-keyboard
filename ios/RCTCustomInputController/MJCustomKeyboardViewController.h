@@ -1,5 +1,5 @@
 //
-//  RCTCustomKeyboardViewController.h
+//  MJCustomKeyboardViewController.h
 //
 //  Created by Leo Natan (Wix) on 12/12/2016.
 //  Copyright © 2016 Leo Natan. All rights reserved.
@@ -13,7 +13,7 @@
 #import "RCTRootView.h"
 #endif
 
-@interface RCTCustomKeyboardViewController : UIInputViewController
+@interface MJCustomKeyboardViewController : UIInputViewController
 
 - (instancetype)initWithKeyboardHeight:(CGFloat)_keyboardHeight;
 - (void) setAllowsSelfSizing:(BOOL)allowsSelfSizing;

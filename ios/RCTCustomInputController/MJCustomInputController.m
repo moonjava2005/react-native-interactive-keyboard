@@ -4,7 +4,7 @@
 //
 
 #import "MJCustomInputController.h"
-#import "RCTCustomKeyboardViewController.h"
+#import "MJCustomKeyboardViewController.h"
 
 #import <React/RCTUIManager.h>
 #import <objc/runtime.h>
@@ -19,7 +19,7 @@ NSString *const MJCustomInputControllerKeyboardResigendEvent = @"kbdResigned";
 -(void)_WXInputHelperViewResignFirstResponder:(UIView*)wxInputHelperView;
 @end
 
-@interface _WXInputHelperView : UIView
+@interface _MJInputHelperView : UIView
 
 @property (nullable, nonatomic, readwrite, strong) UIInputViewController *inputViewController;
 @property (nonatomic, weak) id<_WXInputHelperViewDelegate> delegate;
@@ -28,7 +28,7 @@ NSString *const MJCustomInputControllerKeyboardResigendEvent = @"kbdResigned";
 
 @end
 
-@implementation _WXInputHelperView
+@implementation _MJInputHelperView
 
 - (BOOL)canBecomeFirstResponder
 {
@@ -147,10 +147,10 @@ RCT_EXPORT_METHOD(presentCustomInputComponent:(nonnull NSNumber*)inputFieldTag p
   
   self.customInputComponentPresented = NO;
   
-  RCTCustomKeyboardViewController* customKeyboardController = [[RCTCustomKeyboardViewController alloc] initWithKeyboardHeight:keyboardHeight];
+  MJCustomKeyboardViewController* customKeyboardController = [[MJCustomKeyboardViewController alloc] initWithKeyboardHeight:keyboardHeight];
   customKeyboardController.rootView = rv;
   
-  _WXInputHelperView* helperView = [[_WXInputHelperView alloc] initWithFrame:CGRectZero];
+  _MJInputHelperView* helperView = [[_MJInputHelperView alloc] initWithFrame:CGRectZero];
   helperView.tag = kHlperViewTag;
   helperView.delegate = self;
   UITextView *textView = nil;
@@ -240,7 +240,7 @@ RCT_EXPORT_METHOD(resetInput:(nonnull NSNumber*)inputFieldTag)
   UIView* inputField = [self.bridge.uiManager viewForReactTag:inputFieldTag];
   if(inputField != nil)
   {
-    _WXInputHelperView* helperView = [inputField.superview viewWithTag:kHlperViewTag];
+    _MJInputHelperView* helperView = [inputField.superview viewWithTag:kHlperViewTag];
     if(helperView != nil && [helperView isFirstResponder])
     {//restore the first responder only if it was already the first responder to prevent the keyboard from opening again if not necessary
       //      [inputField reactFocus];
@@ -266,11 +266,11 @@ RCT_EXPORT_METHOD(dismissKeyboard)
   UIView* inputField = [self.bridge.uiManager viewForReactTag:inputFieldTag];
   if(inputField != nil)
   {
-    _WXInputHelperView* helperView = [inputField.superview viewWithTag:kHlperViewTag];
+    _MJInputHelperView* helperView = [inputField.superview viewWithTag:kHlperViewTag];
     if(helperView != nil)
     {
-      [((RCTCustomKeyboardViewController*)helperView.inputViewController) setAllowsSelfSizing:YES];
-      ((RCTCustomKeyboardViewController*)helperView.inputViewController).heightConstraint.constant = newHeight;
+      [((MJCustomKeyboardViewController*)helperView.inputViewController) setAllowsSelfSizing:YES];
+      ((MJCustomKeyboardViewController*)helperView.inputViewController).heightConstraint.constant = newHeight;
       
       UIInputView *inputView = helperView.inputViewController.inputView;
       [inputView setNeedsUpdateConstraints];
@@ -322,14 +322,14 @@ RCT_EXPORT_METHOD(expandFullScreenForInput:(nonnull NSNumber*)inputFieldTag)
   UIView* inputField = [self.bridge.uiManager viewForReactTag:inputFieldTag];
   if(inputField != nil)
   {
-    _WXInputHelperView* helperView = [inputField.superview viewWithTag:kHlperViewTag];
+    _MJInputHelperView* helperView = [inputField.superview viewWithTag:kHlperViewTag];
     if(helperView != nil)
     {
       _performingExpandTransition = YES;
       
       helperView.keepInSuperviewOnResign = YES;
       
-      RCTCustomKeyboardViewController *customKeyboardViewController = (RCTCustomKeyboardViewController*)helperView.inputViewController;
+      MJCustomKeyboardViewController *customKeyboardViewController = (MJCustomKeyboardViewController*)helperView.inputViewController;
       RCTRootView *rv = customKeyboardViewController.rootView;
       UIInputView *inputView = helperView.inputViewController.inputView;
       
@@ -378,7 +378,7 @@ RCT_EXPORT_METHOD(resetSizeForInput:(nonnull NSNumber*)inputFieldTag)
   UIView* inputField = [self.bridge.uiManager viewForReactTag:inputFieldTag];
   if(inputField != nil)
   {
-    _WXInputHelperView* helperView = [inputField.superview viewWithTag:kHlperViewTag];
+    _MJInputHelperView* helperView = [inputField.superview viewWithTag:kHlperViewTag];
     if(helperView != nil)
     {
       _performingExpandTransition = YES;
@@ -403,7 +403,7 @@ RCT_EXPORT_METHOD(resetSizeForInput:(nonnull NSNumber*)inputFieldTag)
                              animations:@[[MJViewAnimation animationWithView:_fullScreenWindow keyPath:@"frame" toValue:[NSValue valueWithCGRect:keyboardTargetFrame]]]
                       completionHandler:^(BOOL completed)
         {
-        RCTCustomKeyboardViewController *customKeyboardViewController = (RCTCustomKeyboardViewController*)helperView.inputViewController;
+        MJCustomKeyboardViewController *customKeyboardViewController = (MJCustomKeyboardViewController*)helperView.inputViewController;
         RCTRootView *rv = (RCTRootView*)_fullScreenWindow.rootViewController.view;
         
         [UIView performWithoutAnimation:^{

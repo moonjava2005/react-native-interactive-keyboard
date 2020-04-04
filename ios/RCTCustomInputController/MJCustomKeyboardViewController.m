@@ -1,14 +1,14 @@
 //
-//  RCTCustomKeyboardViewController.m
+//  MJCustomKeyboardViewController.m
 //
 //  Created by Leo Natan (Wix) on 12/12/2016.
 //  Copyright © 2016 Leo Natan. All rights reserved.
 //
 
-#import "RCTCustomKeyboardViewController.h"
+#import "MJCustomKeyboardViewController.h"
 #import "ObservingInputAccessoryView.h"
 
-@implementation RCTCustomKeyboardViewController
+@implementation MJCustomKeyboardViewController
 
 - (instancetype)initWithKeyboardHeight:(CGFloat)_keyboardHeight
 {
