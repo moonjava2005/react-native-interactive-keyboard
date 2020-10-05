@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
 @property (nonatomic) CGFloat revealKeyboardThrottle;
 @property (nonatomic) BOOL scrollIsInverted;
 @property (nonatomic) BOOL revealKeyboardInteractive;
+@property (nonatomic) BOOL hasBottomTab;
 @property (nonatomic) BOOL isDraggingScrollView;
 @property (nonatomic) BOOL manageScrollView;
 @property (nonatomic) BOOL requiresSameParentToManageScrollView;
@@ -126,7 +127,7 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
             {
                 UITabBarController *_tabBarController=(UITabBarController*)_tempRootViewController;
                 UITabBar *_tempTabBar=_tabBarController.tabBar;
-                if(_tempTabBar!=nil&&!_tempTabBar.hidden)
+                if(_tempTabBar!=nil)
                 {
                     _bottomTabBarHeight=_tempTabBar.frame.size.height;
                 }
@@ -494,6 +495,14 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
     return allSubviews;
 }
 
+- (CGFloat) _getBottomTabHeight{
+    if(self.hasBottomTab)
+    {
+        return _bottomTabBarHeight;
+    }
+    return 0;
+}
+
 - (void)_updateScrollViewInsets
 {
     if(self.scrollViewToManage != nil)
@@ -501,7 +510,7 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
         CGFloat _currentScrollY=self.scrollViewToManage.contentOffset.y;
         UIEdgeInsets insets = self.scrollViewToManage.contentInset;
         CGFloat bottomSafeArea = [self getBottomSafeArea];
-        CGFloat _bottomInset = MAX(self.bounds.size.height, _observingInputAccessoryView.keyboardHeight + _observingInputAccessoryView.height-_bottomTabBarHeight);
+        CGFloat _bottomInset = MAX(self.bounds.size.height, _observingInputAccessoryView.keyboardHeight + _observingInputAccessoryView.height-[self _getBottomTabHeight]);
         CGFloat originalBottomInset = self.scrollIsInverted ? insets.top : insets.bottom;
         CGPoint originalOffset = self.scrollViewToManage.contentOffset;
 
@@ -628,7 +637,7 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
 {
     CGFloat bottomSafeArea = [self getBottomSafeArea];
     CGFloat _currentAccessoryKeyboardHeight=_observingInputAccessoryView.keyboardHeight;
-    CGFloat accessoryTranslation = MIN(-bottomSafeArea, -_currentAccessoryKeyboardHeight+_bottomTabBarHeight);
+    CGFloat accessoryTranslation = MIN(-bottomSafeArea, -_currentAccessoryKeyboardHeight+[self _getBottomTabHeight]);
     if (_observingInputAccessoryView.keyboardHeight <= bottomSafeArea) {
         _bottomViewHeight = kBottomViewHeight;
     } else if (_observingInputAccessoryView.keyboardState != KeyboardStateWillHide) {
@@ -814,6 +823,7 @@ RCT_REMAP_VIEW_PROPERTY(onDismissAccessoryKeyboard,onDismissAccessoryKeyboard, R
 RCT_REMAP_VIEW_PROPERTY(scrollBehavior, scrollBehavior, KeyboardTrackingScrollBehavior)
 RCT_REMAP_VIEW_PROPERTY(revealKeyboardThrottle, revealKeyboardThrottle, CGFloat)
 RCT_REMAP_VIEW_PROPERTY(revealKeyboardInteractive, revealKeyboardInteractive, BOOL)
+RCT_REMAP_VIEW_PROPERTY(hasBottomTab, hasBottomTab, BOOL)
 RCT_REMAP_VIEW_PROPERTY(scrollIsInverted, scrollIsInverted, BOOL)
 RCT_REMAP_VIEW_PROPERTY(manageScrollView, manageScrollView, BOOL)
 RCT_REMAP_VIEW_PROPERTY(requiresSameParentToManageScrollView, requiresSameParentToManageScrollView, BOOL)
@@ -884,3 +894,4 @@ RCT_EXPORT_METHOD(scrollToStart:(nonnull NSNumber *)reactTag)
 }
 
 @end
+

@@ -1,6 +1,6 @@
 {
   "name": "react-native-interactive-keyboard",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Keyboard with accessories on iOS and Android",
   "main": "index.js",
   "scripts": {
